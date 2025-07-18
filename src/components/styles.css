@@ -1,6 +1,6 @@
 .input {
     display: flex;
-    width: 90%;
+    width: 95%;
     position: relative;
     align-items: center;
 }
@@ -42,29 +42,70 @@
     box-shadow: 0 0 5px black;
 }
 
+.container {
+    display: flex;
+    width: 95%;
+    margin-top: 10px;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
 .todos {
     display: flex;
-    justify-content: space-evenly;
-    width: 90%;
-    flex-wrap: wrap;
+    width: 47.5%;
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: rgb(50, 195, 205);
+}
+
+.todos-remove {
+    background-color: rgb(235, 103, 80);
+     display: flex;
+  width: 47.5%;
+  flex-direction: column;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.todos-heading {
+    font-size: 30px;
+    color: white;
 }
 
 .todos_single {
     display: flex;
-    width: 29.5%;
     border-radius: 5px;
     padding: 20px;
     margin-top: 15px;
      background-image: url("https://img.freepik.com/free-photo/crumpled-yellow-paper-background-close-up_60487-2390.jpg?size=626&ext=jpg");
+     transition: 0.2s;
 }
 
+.todos_single:hover{
+    box-shadow: 0 0 5px black;
+    transform: scale(1.03);
+}
 
-
-.todos_single-text {
+.todos_single-text,
+.todos_single-input {
     flex: 1;
     padding: 5px;
     border: none;
     font-size: 20px;
+    height: 100%;
+    min-height: 25px;
+}
+
+.todos_single-input {
+   /*  flex:1;
+    padding: 5px;
+    font-size: 20px;
+    border: none; */
+    background-color: transparent;
+    width: 100%;
+    color: black;
 }
 
 .todos_single-text:focus{
@@ -77,9 +118,9 @@
     cursor: pointer;
 }
 
-@media (max-width: 1200px){
-    .todos_single {
-        width: 40%;
+@media (max-width: 1100px){
+    .todos {
+        width: 45%;
     }
 }
 
@@ -87,10 +128,16 @@
     .input {
         width: 95%;
     }
-    .todos {
+    .todos,
+    .todos-remove {
         width: 95%;
+        margin-bottom: 10px;
     }
-    .todos_single {
+ /*    .todos_single {
         width: 100%;
-    }
+    } */
+     .container{
+        width: 95%;
+        flex-direction: column;
+     }
 }
