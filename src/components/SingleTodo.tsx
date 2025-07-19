@@ -1,76 +1,64 @@
-import React, { useEffect, useRef, useState } from 'react'
-import type { Todo } from './model'
-import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
-import { MdDone } from 'react-icons/md';
+// src/components/SingleTodo.tsx
+import React, { useState, useRef, useEffect } from "react";
+import  type{Todo} from "./model";
+import { useDispatch } from "react-redux";
+import { deleteTodo, toggleTodo, editTodo } from "./store/todoSlice";
+import type { AppDispatch } from "./store/store";
+import { AiFillEdit, AiFillDelete, AiOutlineCheck } from "react-icons/ai";
 import './styles.css';
 
-type Props = {
-  todo: Todo,
-  todos: Todo[],
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+interface Props {
+  todo: Todo;
 }
 
-const SingleTodo = ({ todo, todos, setTodos }: Props) => {
-
+const SingleTodo: React.FC<Props> = ({ todo }) => {
   const [edit, setEdit] = useState<boolean>(false);
-  const [editTodo, setEditTodo] = useState<string>(todo.todo);
-
-  const handleDone = (id: number) => {
-    setTodos(todos.map((todo) => todo.id === id ? { ...todo, isDone: !todo.isDone } : todo));
-  }
-
-  const handleDelete = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  }
-
-  const handleEdit = (e: React.FormEvent, id: number) => {
-    e.preventDefault();
-
-    setTodos(todos.map((todo) => (
-      todo.id ===id?{...todo,todo:editTodo}:todo))
-    );
-    setEdit(false);
-  }
-  
+  const [editText, setEditText] = useState<string>(todo.todo);
+  const dispatch = useDispatch<AppDispatch>();
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    inputRef.current?.focus();
+    if (edit) inputRef.current?.focus();
   }, [edit]);
 
+  const handleEdit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (editText.trim()) {
+      dispatch(editTodo({ id: todo.id, newText: editText }));
+      setEdit(false);
+    }
+  };
+
   return (
-    <form action="" className='todos_single' onSubmit={(e)=>handleEdit(e,todo.id)} >
+    <form className="todos_single" onSubmit={handleEdit}>
       {edit ? (
-        <input ref={inputRef} value={editTodo} onChange={(e) => setEditTodo(e.target.value)} className='todos_single-input' />
-      ):todo.isDone ? (
-          <span className="todos_single-text">
-            {todo.todo}
-          </span>
-        ) : (
-          <span className="todos_single-text">
-            {todo.todo}
-          </span>
-        )
-      }
+        <input
+          ref={inputRef}
+          value={editText}
+          onChange={(e) => setEditText(e.target.value)}
+          className="todos_single-input"
+        />
+      ) : (
+        <span
+          className={`todos_single-text ${todo.isDone ? "strike" : ""}`}
+        >
+          {todo.todo}
+        </span>
+      )}
 
       <div>
-        <span className="icon" onClick={() => {
-           if(!edit && !todo.isDone) {
-            setEdit(!edit);
-           }
-        }
-      }>
+        <span className="icon" onClick={() => !edit && !todo.isDone && setEdit(true)}>
           <AiFillEdit />
         </span>
-        <span className="icon" onClick={() => handleDelete(todo.id)}>
+        <span className="icon" onClick={() => dispatch(deleteTodo(todo.id))}>
           <AiFillDelete />
         </span>
-        <span className="icon" onClick={() => handleDone(todo.id)}>
-          <MdDone />
+        <span className="icon" onClick={() => dispatch(toggleTodo(todo.id))}>
+          <AiOutlineCheck />
         </span>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default SingleTodo
+export default SingleTodo;
