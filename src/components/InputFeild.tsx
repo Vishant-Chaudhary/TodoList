@@ -4,11 +4,6 @@ import { addTodo } from './store/todoSlice';
 import type { AppDispatch } from './store/store';
 import './styles.css';
 
-/* interface Props{
-    todo: string;
-    setTodo: React.Dispatch<React.SetStateAction<string>>;
-    handleAdd: (e: React.FormEvent) => void;
-} */
 
 const InputFeild: React.FC = () => {
   const [todo, setTodo] = useState<string>("");

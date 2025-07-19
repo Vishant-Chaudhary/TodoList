@@ -5,6 +5,8 @@
     align-items: center;
 }
 
+
+
 .input_box {
     width: 100%;
     border-radius: 50px;
@@ -62,11 +64,11 @@
 
 .todos-remove {
     background-color: rgb(235, 103, 80);
-     display: flex;
-  width: 47.5%;
-  flex-direction: column;
-  padding: 15px;
-  border-radius: 5px;
+    display: flex;
+    width: 47.5%;
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 5px;
 }
 
 .todos-heading {
@@ -79,8 +81,10 @@
     border-radius: 5px;
     padding: 20px;
     margin-top: 15px;
-     background-image: url("https://img.freepik.com/free-photo/crumpled-yellow-paper-background-close-up_60487-2390.jpg?size=626&ext=jpg");
-     transition: 0.2s;
+    background-image: url("https://img.freepik.com/free-photo/crumpled-yellow-paper-background-close-up_60487-2390.jpg?size=626&ext=jpg");
+    transition: 0.2s;
+    cursor: grab;
+      z-index: 1;
 }
 
 .todos_single:hover{
@@ -99,10 +103,6 @@
 }
 
 .todos_single-input {
-   /*  flex:1;
-    padding: 5px;
-    font-size: 20px;
-    border: none; */
     background-color: transparent;
     width: 100%;
     color: black;
@@ -133,11 +133,12 @@
         width: 95%;
         margin-bottom: 10px;
     }
- /*    .todos_single {
-        width: 100%;
-    } */
-     .container{
-        width: 95%;
-        flex-direction: column;
-     }
+        .container{
+            width: 95%;
+            flex-direction: column;
+        }
+    }
+    
+    .todos, .todos-remove {
+  min-height: 100px; 
 }
